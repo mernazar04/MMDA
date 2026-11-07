@@ -16,9 +16,12 @@ It contains 20,030 rows, 23 columns, and 20,000 distinct customer IDs.
 3. Run `python -m notebook` from this repository directory.
 4. Open `01_numeric_audit.ipynb` and select **Restart Kernel and Run All Cells**.
 
-The numeric notebook is an initial contribution: training-data statistics, plots,
-formatting issues, and outlier flags for three columns. It does not fit a model
-or finish the cleaning. The original `data.ipynb` is preserved.
+The initial notebook covers five columns: `tenure`, `monthly_charges`,
+`total_charges`, `paperless_billing`, and `payment_method`. It contains training-data
+statistics, plots, formatting checks, IQR flags, and billing-category frequencies
+before and after diagnostic label normalization. Its filename is
+`01_numeric_audit.ipynb`. Model fitting and final cleaning decisions are later
+team tasks. The proposed 5/7/8 division awaits team agreement.
 
 Every analysis notebook should use `from data_split import load_split` followed
 by `train, test = load_split()`. The split holds out 20% of customer IDs and keeps

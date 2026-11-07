@@ -22,14 +22,16 @@ calculate a mean of arbitrary category codes.
 
 | Proposed owner | Columns | Contribution |
 | --- | --- | --- |
-| You | `tenure`, `monthly_charges`, `total_charges` | Numeric statistics and plots; investigate formatting, blanks, extremes, skewness; propose and later implement numeric cleaning. |
-| Teammate 2 | `gender`, `senior_citizen`, `partner`, `dependents`, `contract`, `paperless_billing`, `payment_method`, `signup_date`; target audit for `churn` | Category frequencies, label normalization proposals, date validity and availability; build the shared baseline after the team agrees on predictors. |
-| Teammate 3 | `phone_service`, `multiple_lines`, `internet_service`, `online_security`, `online_backup`, `device_protection`, `tech_support`, `streaming_tv`, `streaming_movies` | Service-category frequencies and normalization; assemble agreed cleaning steps and the final comparison. |
-| Shared decisions | `customer_id`, `internal_flag` | ID is for splitting and duplicate review, not prediction. Exclude `internal_flag` from both models until its meaning and availability at prediction time are established. |
+| Hazem (5 columns) | `tenure`, `monthly_charges`, `total_charges`, `paperless_billing`, `payment_method` | Numeric statistics and plots, charge formatting, missingness, outlier review, and billing-label frequencies and normalization proposals. |
+| Teammate 2 (7 columns; owner to confirm) | `gender`, `senior_citizen`, `partner`, `dependents`, `signup_date`, `phone_service`, `multiple_lines` | Customer and phone category frequencies, label normalization proposals, and date validity and availability. |
+| Teammate 3 (8 columns; owner to confirm) | `internet_service`, `online_security`, `online_backup`, `device_protection`, `tech_support`, `streaming_tv`, `streaming_movies`, `contract` | Internet-service and contract frequencies, structural categories, and normalization proposals. |
+| Shared decisions (3 columns) | `churn`, `customer_id`, `internal_flag` | Audit churn as the prediction target. Use customer ID for splitting and duplicate review. Exclude `internal_flag` from both models until its meaning and availability at prediction time are established. |
 
-Three numeric columns take more statistical work than three categorical ones,
-so equal column counts would not give an equal workload. Each person writes the
-report paragraphs for their own columns; review the combined report together.
+The 5/7/8 proposal covers 20 owned columns and leaves 3 shared columns, accounting
+for all 23 CSV columns. The numeric group has extra work on formatting, missing
+values, outliers, and transformations. Each person writes the report paragraphs
+for their own columns. Agree on the distribution together, and choose owners for
+the shared baseline and final integration before implementing those steps.
 
 ## Agree on these before fitting models
 
@@ -74,7 +76,8 @@ review; an extreme observation is not automatically an error. Logistic regressio
 does not require normally distributed predictors, so do not transform everything
 just to make it look normal.
 
-Use separate notebooks (`01_numeric_audit.ipynb`, a future
+Use separate notebooks (`01_numeric_audit.ipynb`, which now also audits billing
+categories, a future
 `02_customer_categories.ipynb`, and a future `03_service_categories.ipynb`) to
 avoid editing the same notebook simultaneously. Each notebook reads the same
 raw CSV and shared split. Do not delete or reorder rows independently and then
@@ -98,8 +101,9 @@ before starting their column work.
 - [x] Inspect the supplied assignment and repository CSV.
 - [x] Propose ownership and a reproducible customer-level split.
 - [x] Prepare numeric profiling with diagnostic format parsing and IQR flags.
+- [x] Audit billing-category frequencies and diagnostic label normalization.
 - [ ] Team accepts or revises ownership and confirms dataset suitability.
 - [ ] Establish baseline and duplicate policy.
-- [ ] Complete categorical/date audits and numeric cleaning decisions.
+- [ ] Complete remaining categorical/date audits and numeric cleaning decisions.
 - [ ] Implement, validate, and compare cleaning steps.
 - [ ] Combine notebook and write the PDF report.
